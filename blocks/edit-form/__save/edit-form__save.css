@@ -1,0 +1,13 @@
+.edit-form__save {
+  height: 46px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.edit-form__save:hover {
+  opacity: .8;
+  transition: .3s ease-out;
+}
