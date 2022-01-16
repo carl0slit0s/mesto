@@ -7,36 +7,7 @@ let profileEditClosedButton = document.querySelector(".edit-form__close-icon");
 let editProfileName = document.querySelector(".edit-form__name");
 let editProfileAbout = document.querySelector(".edit-form__about");
 
-// лайк
-// let cardLikes = document.querySelectorAll(".photo-card__like");
-// console.log(cardLikes)
-
-// for (let like in cardLikes) {
-//   console.log(like.)
-// }
-// like.addEventListener("click", cardLiked);
-
-// function cardLiked(event) {
-//   event.preventDefault();
-//   if (like.classList.contains("photo-card__like_activate")) {
-//     like.classList.remove("photo-card__like_activate");
-//   } else {
-//     like.classList.add("photo-card__like_activate");
-//   }
-// }
-
-// console.log(editProfileName);
-// console.log(profileName);
-// console.log(editProfileName.getAttribute("placeholder"));
-
-// function clearInput() {
-//   editProfileName.addEventListener("click", function () {
-//     editProfileName.placeholder = "";
-// //   });
-//   editProfileAbout.addEventListener("click", function () {
-//     editProfileAbout.placeholder = "";
-//   });
-// }
+let card_likes = document.querySelectorAll(".photo-card__like");
 
 function openRedactorProfile(event) {
   event.preventDefault();
@@ -70,4 +41,3 @@ function saveRedactorProfile(event) {
 }
 
 profileEditButton.addEventListener("click", openRedactorProfile);
-

@@ -4,7 +4,7 @@
   padding: 0;
   border: 2px solid #fff;
   border-radius: 2px;
-  background-image: url(../../../images/plus.svg);
+  background-image: url(../../../images//vector_img/plus.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-color: #000;
@@ -19,8 +19,6 @@
 
 @media screen and (max-width: 767px) {
   .profile__add-button {
-    /* width: calc(150px * .8);
-    height: calc(50px * .8); */
     margin: 0;
     width: 80%;
   }
@@ -32,11 +30,3 @@
     background-size: 16px;
   }
 }
-
-/* @media screen and (max-width:767px) {
-  .profile__add-button {
-    width: calc(150px * .8);
-    height: calc(50px * .8);
-
-  }
-} */
