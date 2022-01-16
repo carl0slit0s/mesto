@@ -1,7 +1,6 @@
 let profileEditButton = document.querySelector(".profile__edit");
-// let page = document.querySelector(".content");
 let redactorProfile = document.querySelector(".popup");
-let redactorProfileSaveButton = document.querySelector(".edit-form__save");
+// let redactorProfileSaveButton = document.querySelector(".edit-form__save");
 let profileEditClosedButton = document.querySelector(".edit-form__close-icon");
 
 let editProfileName = document.querySelector(".edit-form__name");
@@ -9,6 +8,9 @@ let editProfileAbout = document.querySelector(".edit-form__about");
 
 let card_likes = document.querySelectorAll(".photo-card__like");
 
+let redactorProfileForm = document.querySelector(".edit-form");
+
+// закрыть popup
 function openRedactorProfile(event) {
   event.preventDefault();
 
@@ -19,18 +21,19 @@ function openRedactorProfile(event) {
   editProfileName.value = profileName;
   editProfileAbout.value = profileAbout;
 
-  redactorProfileSaveButton.addEventListener("click", saveRedactorProfile);
   profileEditClosedButton.addEventListener("click", closedRedactorProfile);
+  redactorProfileForm.addEventListener("submit", saveRedactorProfile);
 }
 
+// Закрыть popup
 function closedRedactorProfile(event) {
   event.preventDefault();
   redactorProfile.classList.remove("popup_opened");
 }
 
+// сохранить изменения
 function saveRedactorProfile(event) {
   event.preventDefault();
-  console.log("сохранили");
   redactorProfile.classList.remove("popup_opened");
 
   let inputName = document.querySelector(".edit-form__name").value;

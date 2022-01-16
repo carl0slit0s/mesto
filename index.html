@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
-    <title>Document</title>
+    <title>Mesto Russia</title>
   </head>
   <body class="page">
     <div class="content">
@@ -35,7 +35,6 @@
         </section>
 
         <section class="galary">
-
           <div class="photo-card">
             <img
               src="./images/card_images/baikal.jpg"
@@ -49,16 +48,16 @@
           </div>
 
           <div class="photo-card">
-          <img
-            src="./images/card_images/plato_putorano.jpg"
-            alt="плато Путарано"
-            class="photo-card__photo"
-          />
-          <div class="photo-card__description">
-            <h2 class="photo-card__name">Плато Путарано</h2>
-            <button class="photo-card__like"></button>
+            <img
+              src="./images/card_images/plato_putorano.jpg"
+              alt="плато Путарано"
+              class="photo-card__photo"
+            />
+            <div class="photo-card__description">
+              <h2 class="photo-card__name">Плато Путарано</h2>
+              <button class="photo-card__like"></button>
+            </div>
           </div>
-        </div>
 
           <div class="photo-card">
             <img
@@ -165,12 +164,25 @@
       <div class="popup">
         <form action="#" name="redactor-profile" class="edit-form">
           <h3 class="edit-form__title">Редактировать профиль</h3>
-          <input type="text" class="edit-form__name input-text" placeholder="" />
-          <input type="text" class="edit-form__about input-text" placeholder="" />
-          <button class="edit-form__save">Сохранить</button>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="edit-form__name input-text"
+            placeholder=""
+          />
+          <input
+            type="text"
+            name="about"
+            id="about"
+            class="edit-form__about input-text"
+            placeholder=""
+          />
+          <button class="edit-form__save" type="submit">Сохранить</button>
           <button class="edit-form__close-icon"></button>
         </form>
       </div>
+      
     </div>
     <script src="./index.js"></script>
   </body>
