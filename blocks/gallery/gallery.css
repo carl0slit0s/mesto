@@ -1,4 +1,4 @@
-.galary {
+.gallery {
   max-width: 880px;
   margin: 0 auto;
   display: grid;
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width: 928px) {
-  .galary {
+  .gallery {
     padding: 0 48px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .galary {
+  .gallery {
     padding: 0 19px;
     margin-bottom: 48px;
   }
