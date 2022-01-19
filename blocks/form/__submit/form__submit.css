@@ -1,13 +1,15 @@
-.edit-form__save {
+.form__submit {
   height: 46px;
   background-color: #000;
   color: #fff;
   border: none;
   padding: 0;
   cursor: pointer;
+  border-radius: 2px;
+  margin: 48px 0 0;
 }
 
-.edit-form__save:hover {
+.form__submit:hover {
   opacity: .8;
   transition: .3s ease-out;
 }

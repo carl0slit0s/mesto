@@ -1,13 +1,13 @@
 const profileEditButton = document.querySelector(".profile__edit");
-const redactorProfile = document.querySelector(".popup");
+const popup = document.querySelector(".popup");
 const profileEditClosedButton = document.querySelector(
-  ".edit-form__close-icon"
+  ".popup__close-icon"
 );
 
-const inputProfileName = document.querySelector(".edit-form__name");
-const inputProfileAbout = document.querySelector(".edit-form__about");
+const inputProfileName = document.querySelector(".form__input_field_name");
+const inputProfileAbout = document.querySelector(".form__input_field_about");
 
-const redactorProfileForm = document.querySelector(".edit-form");
+const redactorProfileForm = document.querySelector(".form");
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
@@ -16,7 +16,7 @@ const profileAbout = document.querySelector(".profile__about");
 function openRedactorProfile(event) {
   event.preventDefault();
 
-  redactorProfile.classList.add("popup_opened");
+  popup.classList.add("popup_opened");
 
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
@@ -24,7 +24,7 @@ function openRedactorProfile(event) {
 
 // Закрыть popup
 function closedRedactorProfile(event) {
-  redactorProfile.classList.remove("popup_opened");
+  popup.classList.remove("popup_opened");
 }
 
 // сохранить изменения

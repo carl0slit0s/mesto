@@ -1,12 +1,21 @@
 .profile__info {
-  display: flex;
+  max-width: 400px;
+  display: grid;
   flex-direction: column;
   position: relative;
+  align-items: baseline;
+  justify-items: start;
+  grid-template-areas:
+    "name edit-button"
+    "about about";
 }
 
 @media screen and (max-width: 767px) {
   .profile__info {
     margin-bottom: 32px;
     align-items: center;
+    grid-template-areas:
+      "name"
+      "about";
   }
 }

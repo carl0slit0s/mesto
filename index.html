@@ -12,7 +12,7 @@
       <header class="header">
         <img
           src="./images/vector_img/logo.svg"
-          alt="лого сайта. Надпись на акнглийском языке 'место'"
+          alt="лого сайта. Надпись на английском языке 'место'"
           class="header__logo"
         />
       </header>
@@ -162,27 +162,32 @@
       </footer>
 
       <div class="popup">
-        <form action="#" name="redactor-profile" class="edit-form">
-          <h3 class="edit-form__title">Редактировать профиль</h3>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            class="edit-form__name input-text"
-            placeholder=""
-          />
-          <input
-            type="text"
-            name="about"
-            id="about"
-            class="edit-form__about input-text"
-            placeholder=""
-          />
-          <button class="edit-form__save" type="submit">Сохранить</button>
-          <button class="edit-form__close-icon"></button>
-        </form>
+
+        <div class="popup__conteiner">
+          
+          <form action="#" name="redactor-profile" class="form">
+            <h2 class="form__title">Редактировать профиль</h2>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form__input form__input_field_name"
+              placeholder="введите имя"
+            />
+            <input
+              type="text"
+              name="about"
+              id="about"
+              class="form__input form__input_field_about"
+              placeholder="о себе"
+            />
+            <button class="form__submit" type="submit">Сохранить</button>
+          </form>
+
+          <button type="button" class="popup__close-icon"></button>
+        </div>
+
       </div>
-      
     </div>
     <script src="./index.js"></script>
   </body>
