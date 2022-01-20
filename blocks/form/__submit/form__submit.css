@@ -6,10 +6,18 @@
   padding: 0;
   cursor: pointer;
   border-radius: 2px;
-  margin: 48px 0 0;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .form__submit:hover {
-  opacity: .8;
-  transition: .3s ease-out;
+  opacity: 0.8;
+  transition: 0.3s ease-out;
+}
+
+@media screen and (max-width: 767px) {
+  .form__submit {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
