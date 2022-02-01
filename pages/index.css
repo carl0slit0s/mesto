@@ -27,6 +27,7 @@
 @import url(../blocks/photo-card/__like/photo-card__like.css);
 @import url(../blocks/photo-card/__like/_activate/photo-card__like_activate.css);
 @import url(../blocks/photo-card/__description/photo-card__description.css);
+@import url(../blocks/photo-card/__delete/photo-card__delete.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
@@ -40,3 +41,9 @@
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__submit/form__submit.css);
 @import url(../blocks/form/__title/form__title.css);
+
+@import url(../blocks/photo-popup/photo-popup.css);
+@import url(../blocks/photo-popup/__photo/photo-popup__photo.css);
+@import url(../blocks/photo-popup/__title/photo-popup__title.css);
+@import url(../blocks/popup/__conteiner-photo/popup__conteiner-photo.css);
+@import url(../blocks/popup/_terget/popup_terget_add-photo.css);
