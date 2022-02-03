@@ -26,32 +26,7 @@ const deleteButtons = document.querySelectorAll(".photo-card__delete");
 const popupPhoto = document.querySelector(".photo-popup__photo");
 const popupPhotoTitle = document.querySelector(".photo-popup__title");
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+const profileEditClosedButton = document.querySelectorAll(".popup__close-icon");
 
 function render() {
   initialCards.forEach((card) => renderCard(card));
@@ -60,16 +35,26 @@ function render() {
 function renderCard(card) {
   const linkCard = card.link;
   const nameCard = card.name;
-  createCloneTemplate(nameCard, linkCard);
+  creatCard(nameCard, linkCard);
+  // createCloneTemplate(nameCard, linkCard);
 }
 
 // открыть попап, найти кнопку закрытия
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  const profileEditClosedButton = popup.querySelector(".popup__close-icon");
-  profileEditClosedButton.addEventListener("click", () => closedPopup(popup));
 }
 
+function findOpenPopup(event) {
+  const openPopup = document.querySelector(".popup_opened");
+  closePopup(openPopup);
+}
+
+function creatCard(cardName, cardLink) {
+  const card = createCloneTemplate(cardName, cardLink);
+  inseretCard(gallery, card);
+}
+
+// клонирование темплейта
 function createCloneTemplate(cardName, cardLink) {
   const newCard = template.cloneNode(true);
   const newCardImg = newCard.querySelector(".photo-card__photo");
@@ -77,9 +62,13 @@ function createCloneTemplate(cardName, cardLink) {
   newCardName.textContent = cardName;
   newCardImg.alt = cardName;
   newCardImg.src = cardLink;
-  const photoCard = document.querySelector(".photo-card");
   addListener(newCard);
-  gallery.insertBefore(newCard, photoCard);
+  return newCard;
+}
+
+// добавление карты в разметку
+function inseretCard(container, newCard) {
+  container.prepend(newCard);
 }
 
 function addPhoto(event) {
@@ -87,9 +76,12 @@ function addPhoto(event) {
   if (inputCardName.value && inputCardLink.value) {
     const cardName = inputCardName.value;
     const cardLink = inputCardLink.value;
-    createCloneTemplate(cardName, cardLink);
+    inputCardName.value = "";
+    inputCardLink.value = "";
+    const newCard = createCloneTemplate(cardName, cardLink);
+    inseretCard(gallery, newCard);
   }
-  closedPopup(popupAddPhoto);
+  closePopup(popupAddPhoto);
 }
 
 // открыть редактор добавления фото
@@ -109,16 +101,18 @@ function openRedactorProfile(event) {
 }
 
 // Закрыть popup
-function closedPopup(popup) {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
 // сохранить изменения в редакторе профиля
 function saveRedactorProfile(event) {
   event.preventDefault();
-  closedPopup(popupRedactorProfile);
+  closePopup(popupRedactorProfile);
   profileName.textContent = inputProfileName.value;
   profileAbout.textContent = inputProfileAbout.value;
+  inputProfileName.value = "";
+  inputProfileAbout.value = "";
 }
 
 function addListener(newCard) {
@@ -139,6 +133,7 @@ function openPhoto(event) {
     .closest(".photo-card")
     .querySelector(".photo-card__name");
   popupPhoto.src = photoCard.src;
+  popupPhoto.alt = photoTitle.textContent;
   popupPhotoTitle.textContent = photoTitle.textContent;
   openPopup(popupOpenPhoto);
 }
@@ -149,16 +144,15 @@ function cardDeleted(event) {
 
 function cardLiked(event) {
   const like = event.target;
-  if (!like.classList.contains("photo-card__like_activate")) {
-    like.classList.add("photo-card__like_activate");
-  } else {
-    like.classList.remove("photo-card__like_activate");
-  }
+  like.classList.toggle("photo-card__like_activate");
 }
 
 addPhotoButton.addEventListener("click", openPopapAddPhoto);
 profileEditButton.addEventListener("click", openRedactorProfile);
 redactorProfileForm.addEventListener("submit", saveRedactorProfile);
 addPhotoForm.addEventListener("submit", addPhoto);
+profileEditClosedButton.forEach((button) =>
+  button.addEventListener("click", findOpenPopup)
+);
 
 render();
