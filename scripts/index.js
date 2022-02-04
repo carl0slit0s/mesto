@@ -29,14 +29,10 @@ const popupPhotoTitle = document.querySelector(".photo-popup__title");
 const profileEditClosedButton = document.querySelectorAll(".popup__close-icon");
 
 function render() {
-  initialCards.forEach((card) => renderCard(card));
-}
-
-function renderCard(card) {
-  const linkCard = card.link;
-  const nameCard = card.name;
-  creatCard(nameCard, linkCard);
-  // createCloneTemplate(nameCard, linkCard);
+  initialCards.forEach((card) => {
+    const newCard = createCloneTemplate(card.name, card.link);
+    inseretCard(gallery, newCard);
+  });
 }
 
 // открыть попап, найти кнопку закрытия
@@ -47,11 +43,6 @@ function openPopup(popup) {
 function findOpenPopup(event) {
   const openPopup = document.querySelector(".popup_opened");
   closePopup(openPopup);
-}
-
-function creatCard(cardName, cardLink) {
-  const card = createCloneTemplate(cardName, cardLink);
-  inseretCard(gallery, card);
 }
 
 // клонирование темплейта
