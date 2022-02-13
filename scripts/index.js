@@ -1,5 +1,5 @@
 const profileEditButton = document.querySelector('.profile__edit');
-const addPhotoButton = document.querySelector('.profile__add-button');
+const buttonAddPhoto = document.querySelector('.profile__add-button');
 const popupRedactorProfile = document.querySelector(
   '.popup_target_redactor-profile'
 );
@@ -10,10 +10,10 @@ const inputProfileName = document.querySelector('.form__input_field_name');
 const inputProfileAbout = document.querySelector('.form__input_field_about');
 
 const redactorProfileForm = popupRedactorProfile.querySelector('.form');
-const addPhotoForm = popupAddPhoto.querySelector('.form');
+const formAddPhoto = popupAddPhoto.querySelector('.form');
 
-const inputCardName = addPhotoForm.querySelector('.form__input_card_name');
-const inputCardLink = addPhotoForm.querySelector('.form__input_card_link');
+const inputCardName = formAddPhoto.querySelector('.form__input_card_name');
+const inputCardLink = formAddPhoto.querySelector('.form__input_card_link');
 
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
@@ -21,7 +21,7 @@ const profileAbout = document.querySelector('.profile__about');
 const gallery = document.querySelector('.gallery');
 const template = document.querySelector('#template').content;
 
-const deleteButtons = document.querySelectorAll('.photo-card__delete');
+const buttonsDelete = document.querySelectorAll('.photo-card__delete');
 
 const popupPhoto = document.querySelector('.photo-popup__photo');
 const popupPhotoTitle = document.querySelector('.photo-popup__title');
@@ -30,24 +30,12 @@ const profileEditClosedButton = document.querySelectorAll('.popup__close-icon');
 
 const popups = document.querySelectorAll('.popup');
 
-function escapeKeyHandler() {
-  const openPopup = findOpenPopup();
-  closePopup(openPopup);
+function escapeKeyHandler(event) {
+  const popupOpen = findOpenPopup()
+  if (event.key === 'Escape') {
+    closePopup(popupOpen);
+  }
 }
-
-
-const inputs = [
-  inputCardName,
-  inputCardLink,
-  inputProfileName,
-  inputProfileAbout,
-];
-
-function keyHandler(evt) {
-  inputs.forEach((input) => {});
-}
-
-// function escape ()
 
 function render() {
   initialCards.forEach((card) => {
@@ -58,8 +46,9 @@ function render() {
 
 // открыть попап, найти кнопку закрытия
 function openPopup(event, popup) {
-  event.preventDefault()
+  event.preventDefault();
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escapeKeyHandler);
 }
 
 function findOpenPopup(event) {
@@ -89,8 +78,13 @@ function addPhoto(event) {
   if (inputCardName.value && inputCardLink.value) {
     const cardName = inputCardName.value;
     const cardLink = inputCardLink.value;
+    const buttonSubmit = event.target.querySelector('.form__submit')
+    buttonSubmit.setAttribute('disabled', '');
     inputCardName.value = '';
     inputCardLink.value = '';
+    console.log(buttonSubmit)
+
+    buttonSubmit.classList.add('form__submit_inactive')
     const newCard = createCloneTemplate(cardName, cardLink);
     inseretCard(gallery, newCard);
   }
@@ -116,6 +110,7 @@ function openRedactorProfile(event) {
 // Закрыть popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escapeKeyHandler);
 }
 
 // сохранить изменения в редакторе профиля
@@ -160,33 +155,28 @@ function cardLiked(event) {
   like.classList.toggle('photo-card__like_activate');
 }
 
-addPhotoButton.addEventListener('click', openPopapAddPhoto);
+buttonAddPhoto.addEventListener('click', openPopapAddPhoto);
 profileEditButton.addEventListener('click', openRedactorProfile);
 redactorProfileForm.addEventListener('submit', saveRedactorProfile);
-addPhotoForm.addEventListener('submit', addPhoto);
+formAddPhoto.addEventListener('submit', addPhoto);
 profileEditClosedButton.forEach((button) =>
   button.addEventListener('click', function () {
     const openPopup = findOpenPopup();
     closePopup(openPopup);
   })
 );
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    escapeKeyHandler();
-    
-  }
-});
+// document.addEventListener('keydown', (evt) => {
+//   if (evt.key === 'Escape') {
+//     escapeKeyHandler();
+//   }
+// });
 
-popups.forEach(popup => {
-  const popupConteiner = popup.querySelector('.popup__conteiner')
-  popupConteiner.addEventListener('click', function(event) {
-    event.preventDefault()
-  })
-  popup.addEventListener('click', function(event) {
-    if (!event.defaultPrevented) {
-      closePopup(popup)
+popups.forEach((popup) => {
+  popup.addEventListener('click', function (event) {
+    if (event.target === event.currentTarget) {
+      closePopup(popup);
     }
-  })
-})
+  });
+});
 
 render();
