@@ -78,13 +78,10 @@ function addPhoto(event) {
   if (inputCardName.value && inputCardLink.value) {
     const cardName = inputCardName.value;
     const cardLink = inputCardLink.value;
-    const buttonSubmit = event.target.querySelector('.form__submit')
-    buttonSubmit.setAttribute('disabled', '');
+    buttonSubmit = event.target.querySelector('.form__submit')
     inputCardName.value = '';
     inputCardLink.value = '';
-    console.log(buttonSubmit)
-
-    buttonSubmit.classList.add('form__submit_inactive')
+    disableButton(buttonSubmit, CONFIG.disabledButtonClass)
     const newCard = createCloneTemplate(cardName, cardLink);
     inseretCard(gallery, newCard);
   }

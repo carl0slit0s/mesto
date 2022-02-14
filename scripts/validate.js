@@ -1,3 +1,12 @@
+CONFIG = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  buttonSelector: '.form__submit',
+  inputErrorClass: 'form__input_type_error',
+  disabledButtonClass: 'form__submit_inactive',
+};
+
+// проходимся по формам
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((form) => {
@@ -8,6 +17,7 @@ const enableValidation = (config) => {
   });
 };
 
+// проходимся по инпутам внутри формы
 const setEventListeners = (config, form) => {
   const inputList = Array.from(form.querySelectorAll(config.inputSelector));
   const buttonElement = form.querySelector(config.buttonSelector);
@@ -19,47 +29,61 @@ const setEventListeners = (config, form) => {
     });
   });
 };
-
+// проверка на наличие ошибок. показать/скрыть ошибки
 const checkInputValidity = (inputErrorClass, form, inputElement) => {
   if (!inputElement.validity.valid) {
-    showInputError(inputErrorClass, form, inputElement, inputElement.validationMessage);
+    showInputError(
+      inputErrorClass,
+      form,
+      inputElement,
+      inputElement.validationMessage
+    );
   } else {
     hideInputError(inputErrorClass, form, inputElement);
   }
 };
 
+//показать ошибки
 const showInputError = (inputErrorClass, form, inputElement, errorMessage) => {
   const errorElement = form.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = errorMessage;
   inputElement.classList.add(inputErrorClass);
 };
 
+// скрыть ошибки
 const hideInputError = (inputErrorClass, form, inputElement) => {
   const errorElement = form.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = '';
   inputElement.classList.remove(inputErrorClass);
 };
 
+// проверяем наличие ошибок
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
+// меняем статус кнопки
 const toggleButtonState = (disabledButtonClass, inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(disabledButtonClass);
-    buttonElement.setAttribute('disabled', '');
+    disableButton(buttonElement, disabledButtonClass);
   } else {
-    buttonElement.classList.remove(disabledButtonClass);
-    buttonElement.removeAttribute('disabled')
+    includeButton(buttonElement, disabledButtonClass)
   }
 };
 
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__submit',
-  inputErrorClass: 'form__input_type_error',
-  disabledButtonClass: 'form__submit_inactive'
-});
+// деактивация кнопки
+const disableButton = (button, disabledButtonClass) => {
+  button.classList.add(disabledButtonClass);
+  button.setAttribute('disabled', '');
+};
+
+// активация кнопки
+const includeButton = (button, disabledButtonClass) => {
+  button.classList.remove(disabledButtonClass);
+  button.removeAttribute('disabled');
+};
+
+// запускаем функцию с параметрами
+enableValidation(CONFIG);
