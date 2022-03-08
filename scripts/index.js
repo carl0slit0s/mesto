@@ -1,3 +1,7 @@
+import { Card } from './Card.js';
+import { initialCards } from './initialCards.js';
+import { CONFIG, FormValidator } from './FormValidator.js';
+
 const profileEditButton = document.querySelector('.profile__edit');
 const buttonAddPhoto = document.querySelector('.profile__add-button');
 const popupRedactorProfile = document.querySelector(
@@ -30,8 +34,17 @@ const profileEditClosedButton = document.querySelectorAll('.popup__close-icon');
 
 const popups = document.querySelectorAll('.popup');
 
+const forms = document.querySelectorAll('.form');
+const formList = Array.from(forms);
+formList.forEach((form) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+  const formValid = new FormValidator(CONFIG, form).enableValidation()
+});
+
 function escapeKeyHandler(event) {
-  const popupOpen = findOpenPopup()
+  const popupOpen = findOpenPopup();
   if (event.key === 'Escape') {
     closePopup(popupOpen);
   }
@@ -39,7 +52,7 @@ function escapeKeyHandler(event) {
 
 function render() {
   initialCards.forEach((card) => {
-    const newCard = createCloneTemplate(card.name, card.link);
+    const newCard = new Card(card, template).creatNewCard();
     inseretCard(gallery, newCard);
   });
 }
@@ -76,13 +89,14 @@ function inseretCard(container, newCard) {
 function addPhoto(event) {
   event.preventDefault();
   if (inputCardName.value && inputCardLink.value) {
-    const cardName = inputCardName.value;
-    const cardLink = inputCardLink.value;
-    buttonSubmit = event.target.querySelector('.form__submit')
+    const card = {};
+    card.name = inputCardName.value;
+    card.link = inputCardLink.value;
+    const buttonSubmit = event.target.querySelector('.form__submit');
     inputCardName.value = '';
     inputCardLink.value = '';
-    disableButton(buttonSubmit, CONFIG.disabledButtonClass)
-    const newCard = createCloneTemplate(cardName, cardLink);
+    // new FormValidator(CONFIG, form)._disableButton(buttonSubmit);
+    const newCard = new Card(card, template).creatNewCard();
     inseretCard(gallery, newCard);
   }
   closePopup(popupAddPhoto);
@@ -132,7 +146,7 @@ function addListener(newCard) {
     .addEventListener('click', openPhoto);
 }
 
-function openPhoto(event) {
+export function openPhoto(event) {
   const photoCard = event.target;
   const photoTitle = event.target
     .closest('.photo-card')
@@ -162,11 +176,6 @@ profileEditClosedButton.forEach((button) =>
     closePopup(openPopup);
   })
 );
-// document.addEventListener('keydown', (evt) => {
-//   if (evt.key === 'Escape') {
-//     escapeKeyHandler();
-//   }
-// });
 
 popups.forEach((popup) => {
   popup.addEventListener('click', function (event) {
