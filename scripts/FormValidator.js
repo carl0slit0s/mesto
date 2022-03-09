@@ -1,10 +1,4 @@
-export const CONFIG = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__submit',
-  inputErrorClass: 'form__input_type_error',
-  disabledButtonClass: 'form__submit_inactive',
-};
+
 
 export class FormValidator {
   constructor(config, validForm) {
@@ -15,20 +9,20 @@ export class FormValidator {
     this._disabledButtonClass = config.disabledButtonClass;
     this._form = validForm;
     this._config = config;
+    this.buttonElement = this._form.querySelector(this._buttonSelector);
   }
 
   enableValidation() {
     const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._buttonSelector);
-    this._toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(inputList);
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => this._addListenner(inputElement, inputList, buttonElement));
+      inputElement.addEventListener('input', () => this._addListenner(inputElement, inputList));
     });
   }
 
-  _addListenner(inputElement, inputList, buttonElement) {
+  _addListenner(inputElement, inputList) {
     this._checkInputValidity(this._inputErrorClass, this._form, inputElement);
-    this._toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(inputList);
   }
 
   _checkInputValidity(inputErrorClass, form, inputElement) {
@@ -44,11 +38,11 @@ export class FormValidator {
     }
   }
 
-  _toggleButtonState(inputList, buttonElement) {
+  _toggleButtonState(inputList) {
     if (this._hasInvalidInput(inputList)) {
-      this._disableButton(buttonElement, this._disabledButtonClass);
+      this.disableButton(this._disabledButtonClass);
     } else {
-      this._includeButton(buttonElement, this._disabledButtonClass);
+      this._includeButton(this._disabledButtonClass);
     }
   }
 
@@ -71,13 +65,13 @@ export class FormValidator {
     });
   }
 
-  _disableButton(button) {
-    button.classList.add(this._disabledButtonClass);
-    button.setAttribute('disabled', '');
+  disableButton() {
+    this.buttonElement.classList.add(this._disabledButtonClass);
+    this.buttonElement.setAttribute('disabled', '');
   }
 
-  _includeButton(button) {
-    button.classList.remove(this._disabledButtonClass);
-    button.removeAttribute('disabled');
+  _includeButton() {
+    this.buttonElement.classList.remove(this._disabledButtonClass);
+    this.buttonElement.removeAttribute('disabled');
   }
 }
