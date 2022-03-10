@@ -121,7 +121,7 @@ export function openPhoto(event) {
   popupPhoto.src = photoCard.src;
   popupPhoto.alt = photoTitle.textContent;
   popupPhotoTitle.textContent = photoTitle.textContent;
-  openPopup(event, popupOpenPhoto);
+  openPopup(popupOpenPhoto);
 }
 
 buttonAddPhoto.addEventListener('click', () => openPopup(popupAddPhoto));
