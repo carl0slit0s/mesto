@@ -34,9 +34,6 @@ const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
 const gallery = document.querySelector('.gallery');
-const template = document.querySelector(CONFIG.templateSelector).content;
-
-const buttonsDelete = document.querySelectorAll('.photo-card__delete');
 
 const popupPhoto = document.querySelector('.photo-popup__photo');
 const popupPhotoTitle = document.querySelector('.photo-popup__title');
@@ -45,11 +42,14 @@ const profileEditClosedButton = document.querySelectorAll('.popup__close-icon');
 
 const popups = document.querySelectorAll('.popup');
 
+const formAddPhotoValid = new FormValidator(CONFIG, formAddPhoto)
+
 const forms = document.querySelectorAll('.form');
 const formList = Array.from(forms);
 formList.forEach((form) => {
   new FormValidator(CONFIG, form).enableValidation()
 });
+
 
 function escapeKeyHandler(event) {
   const popupOpen = findOpenPopup();
@@ -95,7 +95,7 @@ function addPhoto(event) {
   form.reset()
   const newCard = new Card(card, CONFIG.templateSelector).creatNewCard();
   inseretCard(gallery, newCard);
-  new FormValidator(CONFIG, form).disableButton()
+  formAddPhotoValid.disableButton()
   closePopup(popupAddPhoto);
 }
 
