@@ -2,16 +2,14 @@ import { Card } from './Card.js';
 import { initialCards } from './initialCards.js';
 import { FormValidator } from './FormValidator.js';
 
-
 const CONFIG = {
   formSelector: '.form',
   inputSelector: '.form__input',
   buttonSelector: '.form__submit',
   inputErrorClass: 'form__input_type_error',
   disabledButtonClass: 'form__submit_inactive',
-  templateSelector: '#template'
+  templateSelector: '#template',
 };
-
 
 const profileEditButton = document.querySelector('.profile__edit');
 const buttonAddPhoto = document.querySelector('.profile__add-button');
@@ -42,14 +40,13 @@ const profileEditClosedButton = document.querySelectorAll('.popup__close-icon');
 
 const popups = document.querySelectorAll('.popup');
 
-const formAddPhotoValid = new FormValidator(CONFIG, formAddPhoto)
+const formAddPhotoValid = new FormValidator(CONFIG, formAddPhoto);
 
 const forms = document.querySelectorAll('.form');
 const formList = Array.from(forms);
 formList.forEach((form) => {
-  new FormValidator(CONFIG, form).enableValidation()
+  new FormValidator(CONFIG, form).enableValidation();
 });
-
 
 function escapeKeyHandler(event) {
   const popupOpen = findOpenPopup();
@@ -69,11 +66,6 @@ function render() {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escapeKeyHandler);
-
-  if (popup === popupRedactorProfile) {
-    inputProfileName.value = profileName.textContent;
-    inputProfileAbout.value = profileAbout.textContent;
-  }
 }
 
 function findOpenPopup() {
@@ -88,14 +80,14 @@ function inseretCard(container, newCard) {
 
 function addPhoto(event) {
   event.preventDefault();
-  const form = event.target
+  const form = event.target;
   const card = {};
   card.name = inputCardName.value;
   card.link = inputCardLink.value;
-  form.reset()
+  form.reset();
   const newCard = new Card(card, CONFIG.templateSelector).creatNewCard();
   inseretCard(gallery, newCard);
-  formAddPhotoValid.disableButton()
+  formAddPhotoValid.disableButton();
   closePopup(popupAddPhoto);
 }
 
@@ -125,8 +117,14 @@ export function openPhoto(event) {
 }
 
 buttonAddPhoto.addEventListener('click', () => openPopup(popupAddPhoto));
-profileEditButton.addEventListener('click', () => openPopup(popupRedactorProfile));
-redactorProfileForm.addEventListener('submit', (event) => saveRedactorProfile(event));
+profileEditButton.addEventListener('click', () => {
+  inputProfileName.value = profileName.textContent;
+  inputProfileAbout.value = profileAbout.textContent;
+  openPopup(popupRedactorProfile);
+});
+redactorProfileForm.addEventListener('submit', (event) =>
+  saveRedactorProfile(event)
+);
 formAddPhoto.addEventListener('submit', (event) => addPhoto(event));
 profileEditClosedButton.forEach((button) =>
   button.addEventListener('click', function () {
