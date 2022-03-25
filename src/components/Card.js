@@ -1,9 +1,6 @@
-// import { openPhoto } from "./index.js";
-import { PopupWithImage } from './PopupWithImage.js';
-
 export class Card {
-  constructor(data, classTampate, handleImageClick) {
-    this._classTamplate = classTampate;
+  constructor(data, classTempate, handleImageClick) {
+    this._classTamplate = classTempate;
     this._cardName = data.name;
     this._cardLink = data.link;
     this._deleteCardSelector = '.photo-card__delete';
@@ -39,22 +36,21 @@ export class Card {
   _addListener() {
     this._newCard
       .querySelector(this._deleteCardSelector)
-      .addEventListener('click', this._cardDeleted);
+      .addEventListener('click', this._deleteCard);
     this._newCard
       .querySelector(this._likeCardSelector)
-      .addEventListener('click', this._cardLiked);
+      .addEventListener('click', this._likeCard);
     this._newCard.querySelector(this._photoCardSelector).addEventListener(
       'click',
       () => this._handleImageClick()
     );
   }
 
-  _cardDeleted(event) {
+  _deleteCard(event) {
     event.target.closest('.photo-card').remove();
   }
 
-  _cardLiked(event) {
-    const _like = event.target;
-    _like.classList.toggle('photo-card__like_activate');
+  _likeCard(event) {
+    event.target.classList.toggle('photo-card__like_activate');
   }
 }

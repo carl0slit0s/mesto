@@ -1,3 +1,12 @@
+export const CONFIG = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  buttonSelector: '.form__submit',
+  inputErrorClass: 'form__input_type_error',
+  disabledButtonClass: 'form__submit_inactive',
+  templateSelector: '#template',
+};
+
 export const profileEditButton = document.querySelector('.profile__edit');
 export const buttonAddPhoto = document.querySelector('.profile__add-button');
 export const popupRedactorProfileSelector = '.popup_target_redactor-profile';
@@ -13,17 +22,10 @@ export const inputProfileAbout = document.querySelector(
   '.form__input_field_about'
 );
 
-export const formAddPhoto = popupAddPhoto.querySelector('.form');
-
-export const inputCardName = formAddPhoto.querySelector(
-  '.form__input_card_name'
-);
-export const inputCardLink = formAddPhoto.querySelector(
-  '.form__input_card_link'
-);
 export const profileNameSelector = '.profile__name';
 export const profileAboutSelector = '.profile__about';
 
 export const gallery = document.querySelector('.gallery');
 
 export const forms = document.querySelectorAll('.form');
+

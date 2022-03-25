@@ -7,39 +7,35 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 
 import {
+  CONFIG,
   profileEditButton,
   buttonAddPhoto,
   popupAddPhotoSelector,
   popupOpenPhotoSelector,
   inputProfileName,
   inputProfileAbout,
-  formAddPhoto,
-  inputCardName,
-  inputCardLink,
   profileNameSelector,
   profileAboutSelector,
   gallery,
   forms,
   popupRedactorProfileSelector,
-  popupPhotoTitleSelector
-} from '../utils/constants.js'
+  popupPhotoTitleSelector,
+} from '../utils/constants.js';
 
-import './index.css'
-
-const CONFIG = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__submit',
-  inputErrorClass: 'form__input_type_error',
-  disabledButtonClass: 'form__submit_inactive',
-  templateSelector: '#template',
-};
+import './index.css';
 
 
-const formList = Array.from(forms);
-formList.forEach((form) => {
-  new FormValidator(CONFIG, form).enableValidation();
-});
+const formValidators = {};
+function enableValidation(config) {
+  const formList = Array.from(forms);
+  formList.forEach((form) => {
+    const validator = new FormValidator(config, form);
+    const formName = form.getAttribute('name')
+    formValidators[formName] = validator
+    validator.enableValidation()
+  });
+}
+enableValidation(CONFIG)
 
 // сохранить изменения в редакторе профиля
 const saveRedactorProfile = (data) => {
@@ -47,10 +43,9 @@ const saveRedactorProfile = (data) => {
   redactorProfilePopup.close();
 };
 
-
 // добавление карты в разметку
-function inseretCard(container, newCard) {
-  container.prepend(newCard);
+function inseretCard(newCard) {
+  cardList.addItem(newCard)
 }
 
 function creatCard(cardData) {
@@ -61,29 +56,25 @@ function creatCard(cardData) {
 }
 
 function addPhoto(data) {
-  const cardData = {};
-  cardData.name = inputCardName.value;
-  cardData.link = inputCardLink.value;
   const newCard = creatCard({
     name: data['place-name'],
     link: data['photo-link'],
   });
-  inseretCard(gallery, newCard);
-  formAddPhotoValid.disableButton();
+  inseretCard(newCard);
   addPhotoPopup.close();
 }
 
 buttonAddPhoto.addEventListener('click', () => {
   addPhotoPopup.open();
+  formValidators['add-card'].disableButton();
 });
+
 profileEditButton.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
   inputProfileName.value = userInfoData.name;
   inputProfileAbout.value = userInfoData.about;
   redactorProfilePopup.open();
 });
-
-const formAddPhotoValid = new FormValidator(CONFIG, formAddPhoto);
 
 const cardList = new Section(
   {
