@@ -1,6 +1,6 @@
 export class Card {
   constructor(data, classTempate, handleImageClick) {
-    this._classTamplate = classTempate;
+    this._classTemplate = classTempate;
     this._cardName = data.name;
     this._cardLink = data.link;
     this._deleteCardSelector = '.photo-card__delete';
@@ -22,7 +22,7 @@ export class Card {
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._classTamplate)
+      .querySelector(this._classTemplate)
       .content.cloneNode(true);
     return cardElement;
   }
