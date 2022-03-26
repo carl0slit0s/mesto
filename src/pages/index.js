@@ -66,7 +66,6 @@ function addPhoto(data) {
 
 buttonAddPhoto.addEventListener('click', () => {
   addPhotoPopup.open();
-  formValidators['add-card'].disableButton();
 });
 
 profileEditButton.addEventListener('click', () => {
