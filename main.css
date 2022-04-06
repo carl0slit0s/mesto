@@ -86,6 +86,14 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/photo-card/__delete/photo-card__delete.css ***!
   \*******************************************************************************************************************************************************************************/
 .photo-card__delete{background-color:transparent;background-image:url(cbc09a894bdd4c956365.svg);border:none;cursor:pointer;height:18px;position:absolute;right:20px;top:20px;width:18px}.photo-card__delete:hover{opacity:.5;transition:.3s ease-out}
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/photo-card/__like-info/photo-card__like-info.css ***!
+  \*************************************************************************************************************************************************************************************/
+.photo-card__like-info{align-items:center;display:flex;flex-direction:column}
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/photo-card/__like-count/photo-card__like-count.css ***!
+  \***************************************************************************************************************************************************************************************/
+.photo-card__like-count{color:#000;font-size:13px;line-height:16px;margin:3px 0 0;padding:0}
 /*!******************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/footer/footer.css ***!
   \******************************************************************************************************************************************************/

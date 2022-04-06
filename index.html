@@ -25,8 +25,8 @@
           />
 
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__about">Исследователь океана</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__about"></p>
             <button type="button" class="profile__edit"></button>
           </div>
 
@@ -42,7 +42,7 @@
 
       <div class="popup popup_target_redactor-profile">
         <div class="popup__conteiner">
-          <form action="#" name="redactor-profile" class="form">
+          <form action="#" name="redactor-profile" class="form form_valid">
             <h2 class="form__title">Редактировать профиль</h2>
 
             <label class="form__field">
@@ -82,7 +82,7 @@
 
       <div class="popup popup_target_add-photo">
         <div class="popup__conteiner">
-          <form action="#" name="add-card" class="form">
+          <form action="#" name="add-card" class="form form_valid">
             <h2 class="form__title">Новое место</h2>
             <label class="form__field">
               <input
@@ -117,6 +117,17 @@
         </div>
       </div>
 
+      <div class="popup popup_target_delete-accept">
+        <div class="popup__conteiner">
+          <form action="#" name="add-card" class="form">
+            <h2 class="form__title">Вы уверены?</h2>
+            <button class="form__submit" type="submit">Да</button>
+          </form>
+
+          <button type="button" class="popup__close-icon"></button>
+        </div>
+      </div>
+
       <div class="popup popup_terget_add-photo">
         <div class="popup__conteiner popup__conteiner_type_photo">
           <figure class="photo-popup">
@@ -137,8 +148,11 @@
           />
           <button type="button" class="photo-card__delete"></button>
           <div class="photo-card__description">
-            <h2 class="photo-card__name">Домбай</h2>
-            <button type="button" class="photo-card__like"></button>
+            <h2 class="photo-card__name"></h2>
+            <div class="photo-card__like-info">
+              <button type="button" class="photo-card__like"></button>
+              <p class="photo-card__like-count"></p>
+            </div>
           </div>
         </article>
       </template>
