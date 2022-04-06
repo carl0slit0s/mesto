@@ -16,6 +16,10 @@ export class PopupWithForm extends Popup {
     });
   }
 
+  chengeHandleSubmit(newHandle) {
+    this._handleSubmit = newHandle
+  }
+
   close() {
     super.close();
     this._form.reset();

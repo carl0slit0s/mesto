@@ -28,6 +28,10 @@
 @import url(../blocks/photo-card/__like/_activate/photo-card__like_activate.css);
 @import url(../blocks/photo-card/__description/photo-card__description.css);
 @import url(../blocks/photo-card/__delete/photo-card__delete.css);
+@import url(../blocks/photo-card/__like-info/photo-card__like-info.css);
+@import url(../blocks/photo-card/__like-count/photo-card__like-count.css);
+
+
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

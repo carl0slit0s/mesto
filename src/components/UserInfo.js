@@ -11,5 +11,6 @@ export class UserInfo {
   setUserInfo(newName, newAbout) {
     this._name.textContent = newName;
     this._about.textContent = newAbout;
+
   }
 }

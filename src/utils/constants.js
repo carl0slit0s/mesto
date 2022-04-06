@@ -14,6 +14,9 @@ export const popupAddPhotoSelector = '.popup_target_add-photo';
 export const popupAddPhoto = document.querySelector(popupAddPhotoSelector);
 export const popupOpenPhotoSelector = '.popup_terget_add-photo';
 export const popupPhotoTitleSelector = '.photo-popup__title'
+export const avatar = document.querySelector('.profile__avatar')
+export const popupDeleteAccept = document.querySelector('.popup_target_delete-accept')
+export const popupDeleteAcceptSelector = '.popup_target_delete-accept'
 
 export const inputProfileName = document.querySelector(
   '.form__input_field_name'
@@ -27,5 +30,5 @@ export const profileAboutSelector = '.profile__about';
 
 export const gallery = document.querySelector('.gallery');
 
-export const forms = document.querySelectorAll('.form');
+export const formsValid = document.querySelectorAll('.form_valid');
 
