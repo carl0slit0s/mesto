@@ -89,6 +89,63 @@ class Api {
         console.log(`Ошибка: ${err}`);
       });
   }
+
+  addLike(id) {
+    return fetch(`${this.server}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: 'b14b5010-4fa1-4827-8329-0c3d4de2a70b',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  deleteLike(id) {
+    return fetch(`${this.server}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: 'b14b5010-4fa1-4827-8329-0c3d4de2a70b',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  changeAvatar(avatar) {
+    return fetch(`${this.server}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: 'b14b5010-4fa1-4827-8329-0c3d4de2a70b',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
 }
 
 export const api = new Api('https://nomoreparties.co/v1/cohort-39', {

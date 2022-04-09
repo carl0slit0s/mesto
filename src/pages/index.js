@@ -21,21 +21,33 @@ import {
   formsValid,
   popupRedactorProfileSelector,
   popupPhotoTitleSelector,
-  avatar,
-  popupDeleteAccept,
+  // avatar,
+  // popupDeleteAccept,
   popupDeleteAcceptSelector,
+  popupChangeAvatarSelector,
+  profileAvatarSelector,
 } from '../utils/constants.js';
 
 import './index.css';
 
+let profileId;
 api.getProfileData().then((profile) => {
-  userInfo.setUserInfo(profile.name, profile.about);
-  avatar.src = profile.avatar;
+  // console.log(profile);
+  userInfo.setUserInfo(profile.name, profile.about, profile.avatar);
+  // avatar.src = profile.avatar;
+  profileId = profile._id;
 });
 
 api.getCards().then((cardDataList) => {
   cardDataList.forEach((cardData) => {
-    const card = creatCard(cardData);
+    const card = creatCard({
+      name: cardData.name,
+      link: cardData.link,
+      likes: cardData.likes,
+      _id: cardData._id,
+      ownerId: cardData.owner._id,
+      profileId: profileId,
+    });
     inseretCard(card);
   });
 });
@@ -60,10 +72,12 @@ enableValidation(CONFIG);
 
 // сохранить изменения в редакторе профиля
 const saveRedactorProfile = (data) => {
+  redactorProfilePopup.renderLoading(true)
   api.editProfile(data).then(() => {
-    userInfo.setUserInfo(data.name, data.about);
+    //добаваить аватар
+    userInfo.updateUserInfo(data.name, data.about);
     redactorProfilePopup.close();
-  });
+  }).finally(() => redactorProfilePopup.renderLoading(false));;
 };
 
 // добавление карты в разметку
@@ -82,29 +96,43 @@ function creatCard(cardData) {
       deleteAcceptPopup.open();
       deleteAcceptPopup.chengeHandleSubmit(() => {
         api.deleteCard(id).then((res) => {
-          // console.log(cardElement);
           cardElement.deleteCard();
           deleteAcceptPopup.close();
         });
       });
+    },
+    (id) => {
+      if (cardElement.checkUserLikes()) {
+        api.deleteLike(id).then((res) => {
+          cardElement.setLikes(res.likes);
+        });
+      } else {
+        api.addLike(id).then((res) => {
+          cardElement.setLikes(res.likes);
+        });
+      }
     }
-  )
+  );
   return cardElement.creatNewCard();
 }
 
 // function
 
 function addPhoto(data) {
+  addPhotoPopup.renderLoading(true)
   api.addCard(data['place-name'], data['photo-link']).then((res) => {
     const newCard = creatCard({
       name: res.name,
       link: res.link,
       likes: res.likes,
       _id: res._id,
+      ownerId: res.owner._id,
+      profileId: profileId,
     });
     inseretCard(newCard);
     addPhotoPopup.close();
-  });
+  })
+  .finally(() => addPhotoPopup.renderLoading(false));
 }
 
 buttonAddPhoto.addEventListener('click', () => {
@@ -118,6 +146,17 @@ profileEditButton.addEventListener('click', () => {
   redactorProfilePopup.open();
 });
 
+const avatar = document.querySelector(profileAvatarSelector);
+avatar.addEventListener('click', () => {changeAvatarPopup.open()})
+function changeAvatar(data) {
+  changeAvatarPopup.renderLoading(true)
+  api.changeAvatar(data.avatar).then((res) => {
+    console.log(res)
+    userInfo.changeAvatar(data.avatar)
+    changeAvatarPopup.close()
+  }).finally(() => changeAvatarPopup.renderLoading(false));
+}
+
 const cardList = new Section(
   {
     items: [],
@@ -130,9 +169,11 @@ const cardList = new Section(
   gallery
 );
 
+
 const userInfo = new UserInfo({
   userNameSelector: profileNameSelector,
   userAboutSelector: profileAboutSelector,
+  userAvatarSelector: profileAvatarSelector,
 });
 const photoPopup = new PopupWithImage(
   popupOpenPhotoSelector,
@@ -144,8 +185,13 @@ const redactorProfilePopup = new PopupWithForm(
 );
 const addPhotoPopup = new PopupWithForm(popupAddPhotoSelector, addPhoto);
 
-deleteAcceptPopup.setEventListeners();
+const changeAvatarPopup = new PopupWithForm(
+  popupChangeAvatarSelector,
+  changeAvatar
+);
 
+deleteAcceptPopup.setEventListeners();
+changeAvatarPopup.setEventListeners();
 photoPopup.setEventListeners();
 redactorProfilePopup.setEventListeners();
 addPhotoPopup.setEventListeners();

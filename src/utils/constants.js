@@ -17,6 +17,8 @@ export const popupPhotoTitleSelector = '.photo-popup__title'
 export const avatar = document.querySelector('.profile__avatar')
 export const popupDeleteAccept = document.querySelector('.popup_target_delete-accept')
 export const popupDeleteAcceptSelector = '.popup_target_delete-accept'
+export const popupChangeAvatarSelector = '.popup_target_change-avatar'
+export const profileAvatarSelector = '.profile__avatar'
 
 export const inputProfileName = document.querySelector(
   '.form__input_field_name'
