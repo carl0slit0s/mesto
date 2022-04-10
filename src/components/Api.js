@@ -6,26 +6,12 @@ class Api {
 
   getProfileData() {
     return fetch(`${this.server}/users/me`, this.options)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   getCards() {
     return fetch(`${this.server}/cards`, this.options)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   editProfile(data) {
@@ -40,14 +26,7 @@ class Api {
         about: data.about,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   addCard(name, link) {
@@ -62,14 +41,7 @@ class Api {
         link,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   deleteCard(id) {
@@ -80,14 +52,7 @@ class Api {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   addLike(id) {
@@ -98,14 +63,7 @@ class Api {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   deleteLike(id) {
@@ -116,14 +74,7 @@ class Api {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse)
   }
 
   changeAvatar(avatar) {
@@ -137,14 +88,17 @@ class Api {
         avatar: avatar
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка ${res.status}`)
+  }
+  rebderError(err) {
+    console.log(`Ошибка: ${err}`)
   }
 }
 
