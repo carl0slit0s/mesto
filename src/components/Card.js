@@ -11,7 +11,7 @@ export class Card {
     this._cardLink = data.link;
     this._likes = data.likes;
     this._id = data._id;
-    // this._deleteCardSelector = '.photo-card__delete';
+    this._deleteCardSelector = '.photo-card__delete';
     this._likeCardSelector = '.photo-card__like';
     this._photoCardSelector = '.photo-card__photo';
     this._likeCountSelector = '.photo-card__like-count';

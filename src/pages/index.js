@@ -5,6 +5,7 @@ import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithAccept } from '../components/PopupWithAccept.js';
 import { api } from '../components/Api.js';
 
 import {
@@ -46,10 +47,24 @@ Promise.all([api.getProfileData(), api.getCards()])
     });
   })
   .catch((err) => console.log(`Ошибка: ${err}`));
+const deleteAcceptPopup = new PopupWithAccept(
+  popupDeleteAcceptSelector,
+);
 
-const deleteAcceptPopup = new PopupWithForm(popupDeleteAcceptSelector, () => {
-  api.deleteCard(id);
-});
+function deleteCard(id, cardElement) {
+  {
+    deleteAcceptPopup.open();
+    deleteAcceptPopup.chengeHandleSubmit(() => {
+      api
+        .deleteCard(id)
+        .then((res) => {
+          cardElement.deleteCard();
+          deleteAcceptPopup.close();
+        })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    });
+  }
+}
 
 const formValidators = {};
 function enableValidation(config) {
@@ -89,16 +104,7 @@ function creatCard(cardData) {
       photoPopup.open(cardData.name, cardData.link);
     },
     (id) => {
-      deleteAcceptPopup.open();
-      deleteAcceptPopup.chengeHandleSubmit(() => {
-        api
-          .deleteCard(id)
-          .then((res) => {
-            cardElement.deleteCard();
-            deleteAcceptPopup.close();
-          })
-          .catch((err) => console.log(`Ошибка: ${err}`));
-      });
+      deleteCard(id, cardElement);
     },
     (id) => {
       checkUserLikes(cardElement, id);
